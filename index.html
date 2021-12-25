@@ -1,0 +1,14 @@
+<?php
+
+header('HTTP/1.1 200 OK');
+$endpointURL = 'https://(ドメイン).com/ebayApi/notificationsReceiver.php';
+$verificationToken = '３２文字以上の自由文字列（認証文字列）';
+
+if(isset($_GET['challenge_code']))
+{
+    header('Content-Type: application/json');
+    $d = $_GET['challenge_code'].$verificationToken.$endpointURL;
+    $hd = array("challengeResponse"=>hash("sha256", $d));
+    echo(json_encode($hd));
+
+}
